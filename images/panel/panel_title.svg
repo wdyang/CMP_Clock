@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="261px" height="49px" viewBox="0 0 261 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>panel_title</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="218.288 232 205 255.017 218.288 278.033 449.373 278.033 462.66 255.017 449.373 232"></polygon>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-1" y="-1" width="259.66" height="48.033">
+            <rect x="204" y="231" width="259.66" height="48.033" fill="white"></rect>
+            <use xlink:href="#path-1" fill="black"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
+        <g id="RingCentral-Display" transform="translate(-203.000000, -231.000000)">
+            <g id="panel_title">
+                <use fill="#000000" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <use stroke="#4990E2" mask="url(#mask-2)" stroke-width="2" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

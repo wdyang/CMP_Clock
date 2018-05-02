@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="229px" height="812px" viewBox="0 0 229 812" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>art_lines_R</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0 7.6385 0 0.119 7.5198 0.119 7.5198 7.6385 -5.150909e-16 7.6385"></polygon>
+        <polygon id="path-3" points="8.392 0.1428 8.392 8.1978 0.3379 8.1978 0.3379 0.1428 8.392 0.1428"></polygon>
+        <polygon id="path-5" points="8.392 0.5725 8.392 8.6265 0.3379 8.6265 0.3379 0.5725 8.392 0.5725"></polygon>
+        <polygon id="path-7" points="8.392 0.9455 8.392 8.9995 0.3379 8.9995 0.3379 0.9455 8.392 0.9455"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-1100.000000, -106.000000)">
+            <g id="art_lines_R" transform="translate(1100.000000, 105.000000)">
+                <polyline id="Stroke-1" stroke="#0073AE" points="3.5713 4.7598 224.1433 4.7598 224.1433 362.5258 224.1433 808.6408 189.2833 808.6408"></polyline>
+                <g id="Group-18" transform="translate(0.000000, 0.881000)">
+                    <g id="Group-4">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="Clip-3"></g>
+                        <path d="M3.7598,7.6385 C1.6838,7.6385 -0.0002,5.9545 -0.0002,3.8785 C-0.0002,1.8025 1.6838,0.1185 3.7598,0.1185 C5.8358,0.1185 7.5198,1.8025 7.5198,3.8785 C7.5198,5.9545 5.8358,7.6385 3.7598,7.6385" id="Fill-2" fill="#0073AE" mask="url(#mask-2)"></path>
+                    </g>
+                    <path d="M189.4707,803.9999 C187.3947,803.9999 185.7107,805.6839 185.7107,807.7599 C185.7107,809.8359 187.3947,811.5199 189.4707,811.5199 C191.5467,811.5199 193.2307,809.8359 193.2307,807.7599 C193.2307,805.6839 191.5467,803.9999 189.4707,803.9999" id="Fill-5" fill="#0073AE"></path>
+                    <path d="M185.7891,162.5995 L224.1431,162.5995" id="Stroke-7" stroke="#0073AE"></path>
+                    <g id="Group-11" transform="translate(220.000000, 1.000000)">
+                        <mask id="mask-4" fill="white">
+                            <use xlink:href="#path-3"></use>
+                        </mask>
+                        <g id="Clip-10"></g>
+                        <path d="M0.3379,4.1698 C0.3379,6.3948 2.1409,8.1978 4.3649,8.1978 C6.5889,8.1978 8.3929,6.3948 8.3929,4.1698 C8.3929,1.9458 6.5889,0.1428 4.3649,0.1428 C2.1409,0.1428 0.3379,1.9458 0.3379,4.1698" id="Fill-9" fill="#0073AE" mask="url(#mask-4)"></path>
+                    </g>
+                    <g id="Group-14" transform="translate(220.000000, 158.000000)">
+                        <mask id="mask-6" fill="white">
+                            <use xlink:href="#path-5"></use>
+                        </mask>
+                        <g id="Clip-13"></g>
+                        <path d="M0.3379,4.5995 C0.3379,6.8235 2.1409,8.6265 4.3649,8.6265 C6.5889,8.6265 8.3929,6.8235 8.3929,4.5995 C8.3929,2.3745 6.5889,0.5725 4.3649,0.5725 C2.1409,0.5725 0.3379,2.3745 0.3379,4.5995" id="Fill-12" fill="#0073AE" mask="url(#mask-6)"></path>
+                    </g>
+                    <g id="Group-17" transform="translate(220.000000, 803.000000)">
+                        <mask id="mask-8" fill="white">
+                            <use xlink:href="#path-7"></use>
+                        </mask>
+                        <g id="Clip-16"></g>
+                        <path d="M0.3379,4.9725 C0.3379,7.1975 2.1409,8.9995 4.3649,8.9995 C6.5889,8.9995 8.3929,7.1975 8.3929,4.9725 C8.3929,2.7475 6.5889,0.9455 4.3649,0.9455 C2.1409,0.9455 0.3379,2.7475 0.3379,4.9725" id="Fill-15" fill="#0073AE" mask="url(#mask-8)"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

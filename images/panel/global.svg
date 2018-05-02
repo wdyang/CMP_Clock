@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="260px" height="48px" viewBox="0 0 260 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>global</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="492.9468 173.3068 262.4408 173.3068 249.4408 195.8238 262.4408 218.3398 492.9468 218.3398 505.9468 195.8238"></polygon>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-1" y="-1" width="258.506" height="47.033">
+            <rect x="248.4408" y="172.3068" width="258.506" height="47.033" fill="white"></rect>
+            <use xlink:href="#path-1" fill="black"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.7">
+        <g id="Desktop-HD-Copy" transform="translate(-248.000000, -172.000000)">
+            <g id="global">
+                <use fill="#0073AE" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <use stroke="#4FD4E9" mask="url(#mask-2)" stroke-width="2" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>
