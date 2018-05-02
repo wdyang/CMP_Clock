@@ -79,7 +79,8 @@ class Earth {
 				});
 
 				this.mesh = new THREE.Mesh(geometry, material);
-				this.mesh.scale.set(0.1,0.1,0.1) //hide it away for now
+				let s = 0.12
+				this.mesh.scale.set(s,s,s) //hide it away for now
 				this.mesh.rotation.y = Math.PI;
 				this.scene.add(this.mesh);
 
@@ -88,6 +89,8 @@ class Earth {
 	}
 
 	update() {
+		if(this.mesh !== undefined)
+			this.mesh.rotateY(0.01)
 	}
 }
 

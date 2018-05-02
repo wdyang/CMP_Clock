@@ -41,7 +41,7 @@ class Scene {
 		/// Global : this.renderer
 		this.renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
 		
-		this.renderer.setClearColor( 0x101030, 1 );
+		this.renderer.setClearColor( 0xFFFFFF, 1 );
 		this.renderer.setSize( this.w, this.h );
 
 		this.renderer.shadowMap.enabled = true;
@@ -57,7 +57,7 @@ class Scene {
 		var src = new THREE.Vector3(0, 0, 1000)
 
 		this.camera.position.copy(src);
-		this.camera.position.z = 1200
+		this.camera.position.z = 2000
 		this.camera.up.set(0,1,0);
 
 		this.camera.lookAt(new THREE.Vector3(0,0,0));
@@ -92,6 +92,7 @@ class Scene {
 		this.container.append( this.renderer.domElement );
 
 		this.clock = new THREE.Clock();
+		this.worldClock = new Clock(this.scene)
 
 		this.earth = new Earth(this.scene, 10000);
 		this.dots = new Dots(this.scene, 4000);
@@ -172,24 +173,6 @@ class Scene {
 		this.controls.autoRotate = !this.controls.autoRotate;
 	}
 
-	shouldUpdateTimezone() {
-		if (this.camera.position.distanceTo(this.camera.prevPosition)>500) {
-			// update lat long based on camera location
-			var location = Common.convertVec3ToLatLon(this.camera.position.clone());
-			this.camera.location = location;
-			this.camera.prevPosition = this.camera.position.clone();
-			
-			// update timezone based on camera location
-			var timezone = Common.getTZ(location[0],location[1]);
-			if (timezone !== this.camera.timezone) {
-				if (this.camera.updateTimezone) {
-					this.camera.updateTimezone(timezone);
-				}
-			}
-			this.camera.timezone = timezone;
-		}
-	}
-
 	render() {
 		this.controls.update();
 		
@@ -203,6 +186,8 @@ class Scene {
 			this.earth.update(this.clock.getElapsedTime());
 		}
 
+		this.worldClock.update()
+		
 		this.renderer.render( this.scene, this.camera );
 
 		this.stats.update();

@@ -158,7 +158,7 @@ class Dots {
 			// sizeScale for animation
 			// mouseoverScale for mouseover
 			// attributes.size.array[i] = Math.sqrt(data[3 * i + 2] * 100) + 5;
-			attributes.size.array[i] = 11.5;
+			attributes.size.array[i] = 15;
 			// We use node color to simplify it
 			var c = colorFn(data[i][0])
 			attributes.customColor.array[3 * i] = c.r

@@ -34,11 +34,11 @@ $(document).ready(()=>{
         this.scene.initScene(true)
 
 		let _globeData = _.filter(globeData, 
-			x=> x[1]%3==0 && x[2]%(3+Math.round(Math.abs(x[1]*x[1])/1000))==0)
+			x=> x[1]%5==0 && x[2]%(5+Math.round(Math.abs(x[1]*x[1])/1000))==0)
 		window._globeDataOrg = _globeData
 					
 		_globeData=_globeData.map(x=>azimuthalEqualAreaProjection([x[2], [x[1]]]))
-			.map(x=>[-x[1]+250, x[0]-400])
+			.map(x=>[-x[1]+250, x[0]-420])
 
 		window._globeData = _globeData
 
@@ -58,6 +58,6 @@ $(document).ready(()=>{
 
         setTimeout(()=>{
             setInterval(()=>{_scene.dots.addRandomHuman()}, 30)
-        }, 2000)
+        }, 1000)
     })
 })
