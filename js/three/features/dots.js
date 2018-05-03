@@ -1,8 +1,9 @@
 // var THREE = require('three');
 
-var hideOutPosition = new THREE.Vector3(0, 0, 0)
+var hideOutPosition = new THREE.Vector3(-10000, 0, 0)
 var hideOutColor = new THREE.Color(0xFF8800)
 var hideOutSize = 0
+const defaultSize = 15
 
 class Dots {
 	constructor(scene, maxNumNode) {
@@ -22,13 +23,13 @@ class Dots {
 
 		for (var i = 0; i < this.maxNumNode; i++ ) {
 			//[lon, lat, size]
-			var vertex = new THREE.Vector3(0, 0, 0);
+			var vertex = hideOutPosition.clone();
 			vertex.toArray(this.pcPositions, i * 3);
 			var pcColor = new THREE.Color(0xFFFFFF); //0xff660e for external
 			pcColor.toArray(this.pcColors, i * 3);
 
 			this.alpha[i] = 1
-			this.pcSizes[i] = 8
+			this.pcSizes[i] = defaultSize
 			this.pcKind[i] = 0
 			this.treeIds.push(i)
 		}
@@ -70,7 +71,7 @@ class Dots {
 
 	makeAllTree(){
 		this.treeIds.length = 0
-		for(let i = 0; i< this.maxNumNode; i++){
+		for(let i = 0; i< this.numNode; i++){
 			this.pcKind[i] = 0;
 			this.treeIds.push(i)
 		}
@@ -83,8 +84,17 @@ class Dots {
 		if(this.treeIds.length > 0) { // if there is no tree left, we stop
 			let idx = Math.floor(Math.random()*this.treeIds.length)
 			let drop = this.treeIds.splice(idx, 1) // this should shrink treeIds array
-			this.pcKind[drop] = 1
-			this.pcGeometry.attributes.kind.needsUpdate = true
+			let x={t:0}
+			new TWEEN.Tween(x).to({t:1}, 3000)
+			.onUpdate(()=>{
+				this.pcKind[drop] = x.t
+				let s = x.t > 0.5 ? 1.0-x.t : x.t
+				this.pcSizes[drop] = defaultSize  * (1+2*s + 0.5*x.t)
+				this.pcGeometry.attributes.kind.needsUpdate = true
+				this.pcGeometry.attributes.size.needsUpdate = true
+			}).start()
+			// this.pcKind[drop] = 1
+			// this.pcGeometry.attributes.kind.needsUpdate = true
 		}
 	}
 
@@ -158,7 +168,7 @@ class Dots {
 			// sizeScale for animation
 			// mouseoverScale for mouseover
 			// attributes.size.array[i] = Math.sqrt(data[3 * i + 2] * 100) + 5;
-			attributes.size.array[i] = 15;
+			attributes.size.array[i] = defaultSize;
 			// We use node color to simplify it
 			var c = colorFn(data[i][0])
 			attributes.customColor.array[3 * i] = c.r

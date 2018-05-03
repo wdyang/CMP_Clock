@@ -33,12 +33,13 @@ $(document).ready(()=>{
         window._scene = this.scene
         this.scene.initScene(true)
 
+		//  reduce density, and futher reduce at higher latitude
 		let _globeData = _.filter(globeData, 
 			x=> x[1]%5==0 && x[2]%(5+Math.round(Math.abs(x[1]*x[1])/1000))==0)
 		window._globeDataOrg = _globeData
 					
 		_globeData=_globeData.map(x=>azimuthalEqualAreaProjection([x[2], [x[1]]]))
-			.map(x=>[-x[1]+250, x[0]-420])
+			.map(x=>[-x[1]+260, x[0]-400])
 
 		window._globeData = _globeData
 

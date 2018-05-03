@@ -57,7 +57,7 @@ class Scene {
 		var src = new THREE.Vector3(0, 0, 1000)
 
 		this.camera.position.copy(src);
-		this.camera.position.z = 2000
+		this.camera.position.z = 1800
 		this.camera.up.set(0,1,0);
 
 		this.camera.lookAt(new THREE.Vector3(0,0,0));
@@ -187,7 +187,7 @@ class Scene {
 		}
 
 		this.worldClock.update()
-		
+
 		this.renderer.render( this.scene, this.camera );
 
 		this.stats.update();

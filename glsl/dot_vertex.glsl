@@ -31,7 +31,7 @@ vec3 project(vec3 coord){
   float lat = coord.x;
   float lon = coord.y;
 
-  pos.x = lon*60.0+20.0; // too slow to adjust js code, adjust here
+  pos.x = lon*60.0; // too slow to adjust js code, adjust here
   pos.y = lat*60.0;
   pos.z = 0.0;
 
