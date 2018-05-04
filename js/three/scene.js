@@ -178,15 +178,16 @@ class Scene {
 		
 		TWEEN.update();
 
+		let time = this.clock.getElapsedTime()
 		if(this.dots){
-			this.dots.update(this.clock.getElapsedTime());
+			this.dots.update(time);
 		}
 
 		if(this.earth){
-			this.earth.update(this.clock.getElapsedTime());
+			this.earth.update(time);
 		}
 
-		this.worldClock.update()
+		this.worldClock.update(time)
 
 		this.renderer.render( this.scene, this.camera );
 

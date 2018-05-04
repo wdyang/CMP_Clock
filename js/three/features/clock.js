@@ -1,5 +1,13 @@
 
-
+function scaleMap(x, in_min, in_max, out_min, out_max){
+    if(x< in_min){
+        return out_min
+    }else if(x>in_max){
+        return out_max
+    }else{
+        return out_min + (out_max-out_min) * (x - in_min) / (in_max-in_min)
+    }
+}
 
 class Clock{
     constructor(scene){
@@ -8,6 +16,11 @@ class Clock{
         let s = 0.9
         this.group.scale.set(s,s,s)
         this.scene.add(this.group)
+        this.speed = 0
+        this.t0 = 0
+        this.t1 = 0
+        this.theta0 = 0
+        this.theta1 = 0
 
         this.add_back()
         this.add_ring()
@@ -64,7 +77,15 @@ class Clock{
         this.group.add( mesh );
     }
 
-    update(){
-        this.handle.rotateZ(-0.002)
+    setPosition(t0, theta0, t1, theta1){
+        this.t0 = t0
+        this.t1 = t1
+        this.theta0 = theta0
+        this.theta1 = theta1
+    }
+    update(time){
+        let axis = new THREE.Vector3(0, 0, -1)
+        let angle = scaleMap(time, this.t0, this.t1, this.theta0, this.theta1)
+        this.handle.setRotationFromAxisAngle(axis, angle)
     }
 }

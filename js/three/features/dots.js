@@ -14,11 +14,14 @@ class Dots {
 		
 		this.pcKind = new Float32Array(this.maxNumNode)
 		this.treeIds = []
+		this.humanIds = []
 		this.alpha = new Float32Array(this.maxNumNode)
 		this.pcSizes = new Float32Array( this.maxNumNode )		
 		this.points = null
 		this.numNode = 0
 
+		this.targetHumanPercent = 0
+		
 		this.time = 0
 
 		for (var i = 0; i < this.maxNumNode; i++ ) {
@@ -84,6 +87,7 @@ class Dots {
 		if(this.treeIds.length > 0) { // if there is no tree left, we stop
 			let idx = Math.floor(Math.random()*this.treeIds.length)
 			let drop = this.treeIds.splice(idx, 1) // this should shrink treeIds array
+			this.humanIds.push(drop)
 			let x={t:0}
 			new TWEEN.Tween(x).to({t:1}, 3000)
 			.onUpdate(()=>{
@@ -93,8 +97,23 @@ class Dots {
 				this.pcGeometry.attributes.kind.needsUpdate = true
 				this.pcGeometry.attributes.size.needsUpdate = true
 			}).start()
-			// this.pcKind[drop] = 1
-			// this.pcGeometry.attributes.kind.needsUpdate = true
+		}
+	}
+
+	addRandomTree(){
+		if(this.humanIds.length > 0) { // if there is no human left, we stop
+			let idx = Math.floor(Math.random()*this.humanIds.length)
+			let drop = this.humanIds.splice(idx, 1) // this should shrink treeIds array
+			this.treeIds.push(drop)
+			let x={t:0}
+			new TWEEN.Tween(x).to({t:1}, 3000)
+			.onUpdate(()=>{
+				this.pcKind[drop] = 1.0-x.t
+				let s = x.t > 0.5 ? 1.0-x.t : x.t
+				this.pcSizes[drop] = defaultSize  * (1+2*s + 0.5*x.t)
+				this.pcGeometry.attributes.kind.needsUpdate = true
+				this.pcGeometry.attributes.size.needsUpdate = true
+			}).start()
 		}
 	}
 

@@ -1,4 +1,5 @@
 // let projection = d3.geoNaturalEarth1()
+
 let projection = d3.geoProjection
 
 var A = 4 * pi + 3 * sqrt(3)
@@ -23,6 +24,25 @@ var azimuthalEqualAreaProjection = projection(azimuthalEqualAreaRaw)
 .scale(124.75)
 .clipAngle(180 - 1e-3);
 
+function csvToObjectArray(csvString) {
+	var csvRowArray    = csvString.split(/\n/);
+	var headerCellArray = trimQuotes(csvRowArray.shift().split(','));
+	var objectArray     = [];
+	
+	while (csvRowArray.length) {
+		var rowCellArray = trimQuotes(csvRowArray.shift().split(','));
+		var rowObject    = _.zipObject(headerCellArray, rowCellArray);
+		objectArray.push(rowObject);
+	}
+	return objectArray;
+}
+
+function trimQuotes(stringArray) {
+	for (var i = 0; i < stringArray.length; i++) {
+		stringArray[i] = _.trim(stringArray[i], '"');
+	}
+	return stringArray;
+}
 
 $(document).ready(()=>{
     SHADER_LOADER.load(shaders=>{
@@ -31,7 +51,9 @@ $(document).ready(()=>{
 
         this.scene = new Scene()
         window._scene = this.scene
-        this.scene.initScene(true)
+		this.scene.initScene(true)
+		
+		this.playback = new Playback()
 
 		//  reduce density, and futher reduce at higher latitude
 		let _globeData = _.filter(globeData, 
@@ -54,7 +76,6 @@ $(document).ready(()=>{
 		if (this.scene.globe) {
 			this.scene.globe.updateFromElevationData(_globeData);
 		}
-
 
 
         setTimeout(()=>{
