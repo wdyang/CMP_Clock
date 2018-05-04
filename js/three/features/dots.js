@@ -20,8 +20,11 @@ class Dots {
 		this.points = null
 		this.numNode = 0
 
+		this.humanPercent = 0
 		this.targetHumanPercent = 0
-		
+		this.population = 1
+		this.targetPopulation = 1
+
 		this.time = 0
 
 		for (var i = 0; i < this.maxNumNode; i++ ) {
@@ -34,7 +37,7 @@ class Dots {
 			this.alpha[i] = 1
 			this.pcSizes[i] = defaultSize
 			this.pcKind[i] = 0
-			this.treeIds.push(i)
+			// this.treeIds.push(i)
 		}
 
 		this.pcGeometry = new THREE.BufferGeometry();
@@ -72,14 +75,26 @@ class Dots {
 
 	}
 
+	setTarget(target){
+		this.targetHumanPercent = target.land_percent
+		this.targetPopulation = target.p_change
+		console.log(target.p_change)
+		this.humanIds.forEach(id=>{
+			this.pcSizes[id] = defaultSize * this.targetPopulation / this.targetHumanPercent / 5.0
+		})
+		this.pcGeometry.attributes.size.needsUpdate = true
+	}
+
 	makeAllTree(){
 		this.treeIds.length = 0
+		this.humanIds.length = 0
 		for(let i = 0; i< this.numNode; i++){
 			this.pcKind[i] = 0;
 			this.treeIds.push(i)
 		}
 		
 		this.pcGeometry.attributes.kind.needsUpdate = true
+		this.humanPercent = 0
 	}
 
 	addRandomHuman(){
@@ -93,7 +108,7 @@ class Dots {
 			.onUpdate(()=>{
 				this.pcKind[drop] = x.t
 				let s = x.t > 0.5 ? 1.0-x.t : x.t
-				this.pcSizes[drop] = defaultSize  * (1+2*s + 0.5*x.t)
+				this.pcSizes[drop] = defaultSize  * (1+3*s + 0.5*x.t)
 				this.pcGeometry.attributes.kind.needsUpdate = true
 				this.pcGeometry.attributes.size.needsUpdate = true
 			}).start()
@@ -110,7 +125,7 @@ class Dots {
 			.onUpdate(()=>{
 				this.pcKind[drop] = 1.0-x.t
 				let s = x.t > 0.5 ? 1.0-x.t : x.t
-				this.pcSizes[drop] = defaultSize  * (1+2*s + 0.5*x.t)
+				this.pcSizes[drop] = defaultSize  * (1+3*s + 0.5*x.t)
 				this.pcGeometry.attributes.kind.needsUpdate = true
 				this.pcGeometry.attributes.size.needsUpdate = true
 			}).start()
@@ -119,7 +134,8 @@ class Dots {
 
 	makeAllHuman(){
 		this.treeIds.length = 0
-		for(let i = 0; i< this.maxNumNode; i++){
+		this.humanIds.length = 0
+		for(let i = 0; i< this.numNode; i++){
 			this.pcKind[i] = 1;
 		}
 		this.pcGeometry.attributes.kind.needsUpdate = true
@@ -132,6 +148,19 @@ class Dots {
 	update(time) {
 		this.time = time
 		this.uniforms.time.value  = time
+
+		this.humanPercent = this.humanIds.length * 1.0 / this.numNode
+		if(this.humanPercent < this.targetHumanPercent){
+			let chance = Math.random()
+			if(chance > 0.2){
+				this.addRandomHuman()
+			}
+		}else if(this.humanPercent > this.targetHumanPercent + 0.0022){
+			let chance = Math.random()
+			if(chance > 0.2){
+				this.addRandomTree()
+			}
+		}
 	}
 
 	// move nodes up so edges is always under, this should be removed for 3D render
@@ -213,6 +242,8 @@ class Dots {
 		attributes.alpha.needsUpdate = true;
 
 		this.pcGeometry.verticesNeedUpdate = true;
+
+		this.makeAllTree()
 	}	
 }
 

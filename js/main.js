@@ -1,5 +1,10 @@
 // let projection = d3.geoNaturalEarth1()
 
+// fog candidate:
+// https://github.com/ykob/sketch-threejs
+// https://ykob.github.io/sketch-threejs/sketch/fog.html
+
+
 let projection = d3.geoProjection
 
 var A = 4 * pi + 3 * sqrt(3)
@@ -78,8 +83,8 @@ $(document).ready(()=>{
 		}
 
 
-        setTimeout(()=>{
-            setInterval(()=>{_scene.dots.addRandomHuman()}, 30)
-        }, 1000)
+        // setTimeout(()=>{
+        //     setInterval(()=>{_scene.dots.addRandomHuman()}, 30)
+        // }, 1000)
     })
 })

@@ -16,6 +16,8 @@ class Playback{
 				res.forEach(d=>{
 					d.Year = parseInt(d.Year)
 					d.Seconds = parseInt(d.Seconds)
+					d.land_percent = d.RCP == 'RCP 2.6' ? parseFloat(d.land_percent_26) : parseFloat(d.land_percent_85)
+					d.p_change = d.RCP == 'RCP 2.6' ? parseFloat(d.p_change_26) : parseFloat(d.p_change_85)
 				})
 				resolve(res)
 			})	
@@ -29,15 +31,17 @@ class Playback{
 			let theta0 = (d.Year - 1880) / 200 * 2 * Math.PI
 			let t1 = t0
 			let theta1 = theta0
+
 			if(idx<this.data.length-1){
 				t1 = this.data[idx+1].Seconds/SpeedUp
 				theta1 = (this.data[idx+1].Year - 1880) / 200 * 2 * Math.PI
 			}
 
 			setTimeout(()=>{
-				console.log(idx, d.Year)
+				// console.log(idx, d.Year)
 				_scene.worldClock.setPosition(t0, theta0, t1, theta1)
-
+				// _scene.dots.setTargetHumanPercent(d.land_percent)
+				_scene.dots.setTarget({land_percent: d.land_percent, p_change: d.p_change})
 			}, t0*1000)
 		})
 	}
