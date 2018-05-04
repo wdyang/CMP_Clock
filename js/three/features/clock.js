@@ -28,6 +28,7 @@ class Clock{
         _.range(0, 8).forEach(x=>this.add_tick(285, Math.PI * x / 4))
 
         this.co2 = 0.3
+        this.targetCO2 = this.co2
         this.add_handle()
     }
 
@@ -105,8 +106,12 @@ class Clock{
     }
 
     setCO2(co2){
-        this.co2 = co2
-        let x = Math.abs(co2)*0.9+0.1 //set min at 0.15
+        this.targetCO2 = co2
+        console.log("target co2:", co2)
+    }
+    updateCO2(){
+        this.co2 += 0.1*(this.targetCO2 - this.co2)
+        let x = Math.abs(this.co2)*0.9+0.1 //set min at 0.15
         let midWidth = x * 5 + (1.0-x)*20
         let midHeight = 300 * x
         
@@ -140,5 +145,6 @@ class Clock{
         let angle = scaleMap(time, this.t0, this.t1, this.theta0, this.theta1)
         this.handleBase.setRotationFromAxisAngle(axis, angle)
         this.handleTip.setRotationFromAxisAngle(axis, angle)
+        if(Math.abs(this.co2 - this.targetCO2) > 0.001) this.updateCO2()
     }
 }
