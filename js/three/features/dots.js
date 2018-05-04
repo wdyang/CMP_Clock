@@ -16,7 +16,8 @@ class Dots {
 		this.treeIds = []
 		this.humanIds = []
 		this.alpha = new Float32Array(this.maxNumNode)
-		this.pcSizes = new Float32Array( this.maxNumNode )		
+		this.pcSizes = new Float32Array( this.maxNumNode )
+		this.skipSizeCheck = []		
 		this.points = null
 		this.numNode = 0
 
@@ -36,6 +37,7 @@ class Dots {
 
 			this.alpha[i] = 1
 			this.pcSizes[i] = defaultSize
+			this.skipSizeCheck[i] = false
 			this.pcKind[i] = 0
 			// this.treeIds.push(i)
 		}
@@ -77,12 +79,12 @@ class Dots {
 
 	setTarget(target){
 		this.targetHumanPercent = target.land_percent
-		this.targetPopulation = target.p_change
-		console.log(target.p_change)
-		this.humanIds.forEach(id=>{
-			this.pcSizes[id] = defaultSize * this.targetPopulation / this.targetHumanPercent / 5.0
-		})
-		this.pcGeometry.attributes.size.needsUpdate = true
+		this.targetPopulation = target.population_change
+		// console.log(target.population_change)
+		// this.humanIds.forEach(id=>{
+		// 	this.pcSizes[id] = defaultSize * this.targetPopulation / this.targetHumanPercent / 5.0
+		// })
+		// this.pcGeometry.attributes.size.needsUpdate = true
 	}
 
 	makeAllTree(){
@@ -103,6 +105,7 @@ class Dots {
 			let idx = Math.floor(Math.random()*this.treeIds.length)
 			let drop = this.treeIds.splice(idx, 1) // this should shrink treeIds array
 			this.humanIds.push(drop)
+			this.skipSizeCheck[drop] = true
 			let x={t:0}
 			new TWEEN.Tween(x).to({t:1}, 3000)
 			.onUpdate(()=>{
@@ -112,6 +115,9 @@ class Dots {
 				this.pcGeometry.attributes.kind.needsUpdate = true
 				this.pcGeometry.attributes.size.needsUpdate = true
 			}).start()
+			.onComplete(()=>{
+				this.skipSizeCheck[drop] = false
+			})
 		}
 	}
 
@@ -161,6 +167,17 @@ class Dots {
 				this.addRandomTree()
 			}
 		}
+
+		if(Math.abs(this.population - this.targetPopulation) > 0.001){
+			this.population += 0.1*(this.targetPopulation - this.population)
+			this.humanIds.forEach(id=>{
+				if(!this.skipSizeCheck[id])
+					// not exact sqrt, to add a bit drama
+					this.pcSizes[id] = defaultSize * Math.pow(this.population / this.targetHumanPercent, 0.7) / 2.5
+			})
+			this.pcGeometry.attributes.size.needsUpdate = true
+	}
+
 	}
 
 	// move nodes up so edges is always under, this should be removed for 3D render

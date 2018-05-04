@@ -30,8 +30,11 @@ class Scene {
 		// this.prevTimezone = '';
 	}
 	initScene( statsEnabled) {
-		this.container = document.createElement( 'div' );
-		document.body.appendChild( this.container );
+		// this.container = document.createElement( 'div' );
+		// document.body.appendChild( this.container );
+
+		this.container = $('#scene');
+
 		this.w = window.innerWidth || 2;
 		this.h = window.innerHeight || 2;
 

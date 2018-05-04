@@ -56,7 +56,7 @@ $(document).ready(()=>{
 
         this.scene = new Scene()
         window._scene = this.scene
-		this.scene.initScene(true)
+		this.scene.initScene(false)
 		
 		this.playback = new Playback()
 

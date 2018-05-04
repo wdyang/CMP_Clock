@@ -2,6 +2,8 @@
 
 const SpeedUp = 26 // set this to 1 for final play
 
+// p_change => population_change
+
 class Playback{
 	constructor(){
 		this.data = null
@@ -17,7 +19,14 @@ class Playback{
 					d.Year = parseInt(d.Year)
 					d.Seconds = parseInt(d.Seconds)
 					d.land_percent = d.RCP == 'RCP 2.6' ? parseFloat(d.land_percent_26) : parseFloat(d.land_percent_85)
-					d.p_change = d.RCP == 'RCP 2.6' ? parseFloat(d.p_change_26) : parseFloat(d.p_change_85)
+					d.population_change = d.RCP == 'RCP 2.6' ? parseFloat(d.p_change_26) : parseFloat(d.p_change_85)
+					d.co2 = d.RCP == 'RCP 2.6' ? parseFloat(d.co2_26) : parseFloat(d.co2_85)
+					d.co2_change = d.RCP == 'RCP 2.6' ? parseFloat(d.co2_change_26) : parseFloat(d.co2_change_85)
+				})
+				let maxCO2 = _.max(res.map(d=>d.co2))
+				res.forEach(d=>{
+					let co2_scaled = d.co2 / maxCO2
+					d.co2_scaled = Math.sign(co2_scaled) * Math.pow(Math.abs(co2_scaled), 0.8)
 				})
 				resolve(res)
 			})	
@@ -40,8 +49,16 @@ class Playback{
 			setTimeout(()=>{
 				// console.log(idx, d.Year)
 				_scene.worldClock.setPosition(t0, theta0, t1, theta1)
+				_scene.worldClock.setCO2(d.co2_scaled)
 				// _scene.dots.setTargetHumanPercent(d.land_percent)
-				_scene.dots.setTarget({land_percent: d.land_percent, p_change: d.p_change})
+				_scene.dots.setTarget({land_percent: d.land_percent, population_change: d.population_change})
+
+				$('#Year').text("Year " + d.Year)
+				$('#RCP').text("RCP scenerio: "+d.RCP)
+				$('#Population').text("Population vs year 1880: " + Math.round(d.population_change*100)/100 + "x")
+				$('#LandUse').text("Human land use: "+Math.round(d.land_percent*1000)/10+"% of total land")
+				$('#Co2Base').text("CO2 Emission at 1880: "+this.data[0].co2)
+				$('#Co2').text("CO2 Emission: "+Math.round(d.co2) + ", vs 1880: "+ Math.round(d.co2_change*100)/100 + "x")
 			}, t0*1000)
 		})
 	}
